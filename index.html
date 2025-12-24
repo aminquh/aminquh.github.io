@@ -3,61 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Amin Qudaih - Freelance Full-Stack Developer (Web & Android). Expert in Python, React, AWS, and AI integration. Based in Istanbul.">
-    <title>Amin Qudaih | Full-Stack Developer</title>
+    <meta name="description" content="Amin Qudaih Consulting - Enterprise Full-Stack Web, Android Development & AI Solutions.">
+    <title>Amin Qudaih Consulting | AI & Software Solutions</title>
     
     <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- FontAwesome for Icons -->
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
         :root {
-            --primary-color: #0d6efd;
-            --bg-light: #f8f9fa;
+            --primary: #2563eb;
+            --secondary: #1e293b;
+            --accent: #06b6d4;
+            --light-bg: #f8fafc;
         }
+        
         body {
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            overflow-x: hidden;
         }
+
+        /* --- Animations & Transitions --- */
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        /* --- Hero Section (Mesh Gradient) --- */
         .hero-section {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            background-color: #0f172a;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+            color: white;
+            padding: 120px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* --- Service Cards --- */
+        .service-card {
+            border: none;
+            border-radius: 15px;
+            padding: 2rem;
+            background: white;
+            height: 100%;
+            border-bottom: 4px solid var(--primary);
+        }
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- Tech Strip --- */
+        .tech-strip {
+            background: var(--secondary);
+            padding: 40px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .tech-icon {
+            color: rgba(255,255,255,0.5);
+            font-size: 2.5rem;
+            margin: 0 20px;
+            transition: color 0.3s;
+        }
+        .tech-icon:hover {
+            color: var(--accent);
+        }
+
+        /* --- Why Us Section --- */
+        .why-us-section {
+            background-color: var(--light-bg);
+            padding: 100px 0;
+        }
+
+        /* --- CTA Section --- */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             color: white;
             padding: 80px 0;
+            text-align: center;
         }
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 4px solid white;
-            margin-bottom: 20px;
-        }
-        .skill-badge {
-            margin: 5px;
-            font-size: 0.9rem;
-        }
-        .timeline-item {
-            border-left: 3px solid var(--primary-color);
-            padding-left: 20px;
-            margin-bottom: 30px;
-            position: relative;
-        }
-        .timeline-item::before {
-            content: '';
-            width: 12px;
-            height: 12px;
-            background: var(--primary-color);
-            position: absolute;
-            left: -7px;
-            top: 5px;
-            border-radius: 50%;
-        }
-        
-        /* Language Toggling Logic */
+
+        /* --- Language Toggle --- */
         .lang-tr { display: none; }
-        
-        /* When body has class 'show-tr', hide EN and show TR */
         body.show-tr .lang-en { display: none !important; }
         body.show-tr .lang-tr { display: block !important; }
         body.show-tr .lang-tr-inline { display: inline !important; }
@@ -66,22 +111,30 @@
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="#">Amin Qudaih</a>
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-code me-2 text-primary"></i>Amin Qudaih Consulting
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="#about"><span class="lang-en">About</span><span class="lang-tr">Hakkımda</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="#experience"><span class="lang-en">Experience</span><span class="lang-tr">Deneyim</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="#skills"><span class="lang-en">Skills</span><span class="lang-tr">Yetenekler</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services"><span class="lang-en">Services</span><span class="lang-tr">Hizmetler</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#why-us"><span class="lang-en">Why Us</span><span class="lang-tr">Neden Biz</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tech"><span class="lang-en">Technologies</span><span class="lang-tr">Teknolojiler</span></a></li>
                     <li class="nav-item ms-3">
-                        <button class="btn btn-outline-light btn-sm" onclick="toggleLanguage()">
+                        <button class="btn btn-outline-light btn-sm rounded-pill px-3" onclick="toggleLanguage()">
                             <span class="lang-en">TR / EN</span>
                             <span class="lang-tr">EN / TR</span>
                         </button>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a href="#contact" class="btn btn-primary rounded-pill px-4">
+                            <span class="lang-en">Get a Quote</span>
+                            <span class="lang-tr">Teklif Alın</span>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -89,70 +142,175 @@
     </nav>
 
     <!-- Hero Section -->
-    <header class="hero-section text-center">
+    <header class="hero-section d-flex align-items-center">
         <div class="container">
-            <!-- Placeholder for a real image, using a generic avatar for now -->
-            <div class="d-flex justify-content-center">
-                <div class="bg-secondary d-flex align-items-center justify-content-center profile-img fs-1">
-                    AQ
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1000">
+                    <h1 class="display-3 fw-bold mb-4">
+                        <span class="lang-en">Scalable Software. <br><span class="text-info">Intelligent Solutions.</span></span>
+                        <span class="lang-tr">Ölçeklenebilir Yazılım. <br><span class="text-info">Akıllı Çözümler.</span></span>
+                    </h1>
+                    <p class="lead mb-5 text-white-50">
+                        <span class="lang-en">We transform businesses with high-performance Web, Android, and AI-driven applications. From Istanbul to the World.</span>
+                        <span class="lang-tr">Yüksek performanslı Web, Android ve Yapay Zeka destekli uygulamalarla işletmeleri dönüştürüyoruz. İstanbul'dan dünyaya.</span>
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="#contact" class="btn btn-primary btn-lg rounded-pill px-5 shadow-lg">
+                            <span class="lang-en">Start Your Project</span>
+                            <span class="lang-tr">Projeye Başla</span>
+                        </a>
+                        <a href="#services" class="btn btn-outline-light btn-lg rounded-pill px-5">
+                            <span class="lang-en">Explore Services</span>
+                            <span class="lang-tr">Hizmetleri Keşfet</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-5 mt-lg-0 text-center" data-aos="fade-left" data-aos-duration="1000">
+                    <img src="https://cdni.iconscout.com/illustration/premium/thumb/web-development-2964817-2464795.png" alt="Development" class="img-fluid" style="max-width: 80%; filter: drop-shadow(0 0 20px rgba(6,182,212,0.3));">
                 </div>
             </div>
-            <h1 class="display-4 fw-bold">Amin Qudaih</h1>
-            <h4 class="fw-light mb-4">
-                <span class="lang-en">Freelance Full-Stack Developer (Web & Android)</span>
-                <span class="lang-tr">Serbest Full-Stack Geliştirici (Web & Android)</span>
-            </h4>
-            <p class="lead mb-4">
-                <i class="fas fa-map-marker-alt me-2"></i> Istanbul, Türkiye
-            </p>
-            <a href="mailto:contact@example.com" class="btn btn-primary btn-lg">
-                <i class="fas fa-paper-plane me-2"></i> 
-                <span class="lang-en">Hire Me</span>
-                <span class="lang-tr">İletişime Geç</span>
-            </a>
         </div>
     </header>
 
-    <!-- Experience Section -->
-    <section id="experience" class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-5">
-                <span class="lang-en">Professional Experience</span>
-                <span class="lang-tr">Profesyonel Deneyim</span>
-            </h2>
-            
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="timeline-item">
-                        <h3 class="h5 fw-bold">Amin Qudaih Consulting</h3>
-                        <p class="text-muted mb-2">
-                            <span class="lang-en">Freelance Full-Stack Developer</span>
-                            <span class="lang-tr">Serbest Full-Stack Geliştirici</span>
-                            | 
-                            <span class="lang-en">Jan 2022 - Present</span>
-                            <span class="lang-tr">Ocak 2022 - Günümüz</span>
-                        </p>
-                        
-                        <!-- English Content -->
-                        <div class="lang-en">
-                            <p>Delivered full-stack web and Android applications for clients in fintech, e-commerce, and SaaS across Türkiye, Europe, UK, and MENA.</p>
-                            <ul>
-                                <li>Built scalable backends using <strong>Python (FastAPI, Django)</strong> and modern frontend stacks (React, Next.js).</li>
-                                <li>Integrated AI-powered features including chatbots, semantic search, and automation (OpenAI, Hugging Face).</li>
-                                <li>Developed and maintained Android applications (Kotlin), integrating Firebase, payments, and push notifications.</li>
-                                <li>Deployed systems on AWS using Docker, Nginx, and CI/CD pipelines.</li>
-                            </ul>
-                        </div>
+    <!-- Tech Strip (Infinite feeling) -->
+    <div class="tech-strip" id="tech">
+        <div class="container text-center">
+            <p class="text-uppercase text-white-50 mb-4 small letter-spacing-2">
+                <span class="lang-en">Powering Next-Gen Apps With</span>
+                <span class="lang-tr">Yeni Nesil Uygulamaların Güç Kaynağı</span>
+            </p>
+            <div class="d-flex justify-content-center flex-wrap gap-4" data-aos="zoom-in">
+                <i class="fab fa-python tech-icon" title="Python"></i>
+                <i class="fab fa-react tech-icon" title="React"></i>
+                <i class="fab fa-aws tech-icon" title="AWS"></i>
+                <i class="fab fa-docker tech-icon" title="Docker"></i>
+                <i class="fab fa-android tech-icon" title="Android"></i>
+                <i class="fas fa-brain tech-icon" title="AI/ML"></i>
+            </div>
+        </div>
+    </div>
 
-                        <!-- Turkish Content -->
-                        <div class="lang-tr">
-                            <p>Türkiye, Avrupa, İngiltere ve MENA bölgesindeki müşteriler için Fintech, e-ticaret ve SaaS alanlarında full-stack web ve Android uygulamaları geliştirdim.</p>
-                            <ul>
-                                <li><strong>Python (FastAPI, Django)</strong> ve modern frontend teknolojileri (React, Next.js) kullanarak ölçeklenebilir backend yapıları kurdum.</li>
-                                <li>Chatbotlar, anlamsal arama ve otomasyon (OpenAI, Hugging Face) dahil olmak üzere yapay zeka destekli özellikler entegre ettim.</li>
-                                <li>Firebase, ödeme sistemleri ve bildirim entegrasyonlarına sahip Android uygulamaları (Kotlin) geliştirdim ve bakımını sağladım.</li>
-                                <li>Sistemleri Docker, Nginx ve CI/CD süreçlerini kullanarak AWS üzerinde yayına aldım.</li>
-                            </ul>
+    <!-- Services Section -->
+    <section id="services" class="py-5">
+        <div class="container py-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h6 class="text-primary text-uppercase fw-bold ls-2">
+                    <span class="lang-en">What We Do</span>
+                    <span class="lang-tr">Ne Yapıyoruz</span>
+                </h6>
+                <h2 class="display-5 fw-bold">
+                    <span class="lang-en">End-to-End Development</span>
+                    <span class="lang-tr">Uçtan Uca Geliştirme</span>
+                </h2>
+            </div>
+
+            <div class="row g-4">
+                <!-- Service 1 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-card hover-lift shadow-sm">
+                        <div class="icon-box">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3>
+                            <span class="lang-en">Full-Stack Web</span>
+                            <span class="lang-tr">Full-Stack Web</span>
+                        </h3>
+                        <p class="text-muted mt-3">
+                            <span class="lang-en">Modern web applications using React, Next.js, and Python (FastAPI/Django). We build scalable SaaS platforms and e-commerce solutions.</span>
+                            <span class="lang-tr">React, Next.js ve Python (FastAPI/Django) kullanan modern web uygulamaları. Ölçeklenebilir SaaS platformları ve e-ticaret çözümleri üretiyoruz.</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-card hover-lift shadow-sm">
+                        <div class="icon-box">
+                            <i class="fab fa-android"></i>
+                        </div>
+                        <h3>
+                            <span class="lang-en">Android Development</span>
+                            <span class="lang-tr">Android Geliştirme</span>
+                        </h3>
+                        <p class="text-muted mt-3">
+                            <span class="lang-en">Native Kotlin applications with seamless integrations. Features include Firebase, Push Notifications, and Payment Gateways.</span>
+                            <span class="lang-tr">Kusursuz entegrasyonlara sahip yerel (native) Kotlin uygulamaları. Firebase, Bildirimler ve Ödeme Sistemleri dahildir.</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-card hover-lift shadow-sm">
+                        <div class="icon-box">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3>
+                            <span class="lang-en">AI & Automation</span>
+                            <span class="lang-tr">Yapay Zeka & Otomasyon</span>
+                        </h3>
+                        <p class="text-muted mt-3">
+                            <span class="lang-en">Integrate the future into your business. Chatbots, Semantic Search, and Process Automation using OpenAI and Hugging Face.</span>
+                            <span class="lang-tr">Geleceği işinize entegre edin. OpenAI ve Hugging Face kullanarak Chatbotlar, Anlamsal Arama ve Süreç Otomasyonu.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us / Value Prop (Different Look) -->
+    <section id="why-us" class="why-us-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-5 mb-lg-0" data-aos="fade-right">
+                    <h2 class="display-5 fw-bold mb-4">
+                        <span class="lang-en">Why Partner With Us?</span>
+                        <span class="lang-tr">Neden Bizimle Çalışmalısınız?</span>
+                    </h2>
+                    <p class="lead text-muted">
+                        <span class="lang-en">We don't just write code; we solve complex business problems. Our hybrid expertise in Mobile, Web, and AI offers a competitive edge.</span>
+                        <span class="lang-tr">Sadece kod yazmıyoruz; karmaşık iş problemlerini çözüyoruz. Mobil, Web ve Yapay Zeka konusundaki hibrit uzmanlığımız rekabet avantajı sağlar.</span>
+                    </p>
+                    <ul class="list-unstyled mt-4">
+                        <li class="mb-3 d-flex align-items-center">
+                            <i class="fas fa-check-circle text-success me-3 fa-lg"></i>
+                            <span class="lang-en">Cloud-Ready Architecture (AWS/Docker)</span>
+                            <span class="lang-tr">Bulut Uyumlu Mimari (AWS/Docker)</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-center">
+                            <i class="fas fa-check-circle text-success me-3 fa-lg"></i>
+                            <span class="lang-en">AI-First Approach</span>
+                            <span class="lang-tr">Yapay Zeka Odaklı Yaklaşım</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-center">
+                            <i class="fas fa-check-circle text-success me-3 fa-lg"></i>
+                            <span class="lang-en">Cross-Border Experience (EU, UK, MENA)</span>
+                            <span class="lang-tr">Uluslararası Deneyim (AB, İngiltere, MENA)</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-6 offset-lg-1" data-aos="fade-left">
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="p-4 bg-white rounded shadow-sm text-center">
+                                <h2 class="fw-bold text-primary">4+</h2>
+                                <span class="lang-en small">Years Experience</span>
+                                <span class="lang-tr small">Yıl Deneyim</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-4 bg-white rounded shadow-sm text-center">
+                                <h2 class="fw-bold text-primary">100%</h2>
+                                <span class="lang-en small">Client Satisfaction</span>
+                                <span class="lang-tr small">Müşteri Memnuniyeti</span>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="p-4 bg-white rounded shadow-sm text-center">
+                                <i class="fas fa-network-wired fa-2x text-secondary mb-2"></i>
+                                <h5 class="fw-bold mt-2">Full-Stack Capability</h5>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -160,83 +318,65 @@
         </div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center mb-5">
-                <span class="lang-en">Technical Skills</span>
-                <span class="lang-tr">Teknik Yetenekler</span>
+    <!-- CTA Section -->
+    <section id="contact" class="cta-section">
+        <div class="container text-center" data-aos="zoom-in">
+            <h2 class="mb-4 fw-bold">
+                <span class="lang-en">Ready to scale your business?</span>
+                <span class="lang-tr">İşinizi büyütmeye hazır mısınız?</span>
             </h2>
-            <div class="row text-center">
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm border-0">
-                        <div class="card-body">
-                            <i class="fas fa-server fa-3x text-primary mb-3"></i>
-                            <h4 class="card-title">Backend & AI</h4>
-                            <div class="d-flex flex-wrap justify-content-center">
-                                <span class="badge bg-secondary skill-badge">Python</span>
-                                <span class="badge bg-secondary skill-badge">FastAPI</span>
-                                <span class="badge bg-secondary skill-badge">Django</span>
-                                <span class="badge bg-dark skill-badge">OpenAI API</span>
-                                <span class="badge bg-dark skill-badge">Hugging Face</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm border-0">
-                        <div class="card-body">
-                            <i class="fas fa-laptop-code fa-3x text-primary mb-3"></i>
-                            <h4 class="card-title">Frontend & Mobile</h4>
-                            <div class="d-flex flex-wrap justify-content-center">
-                                <span class="badge bg-secondary skill-badge">React</span>
-                                <span class="badge bg-secondary skill-badge">Next.js</span>
-                                <span class="badge bg-secondary skill-badge">JavaScript/TS</span>
-                                <span class="badge bg-success skill-badge">Android (Kotlin)</span>
-                                <span class="badge bg-success skill-badge">Firebase</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm border-0">
-                        <div class="card-body">
-                            <i class="fas fa-cloud fa-3x text-primary mb-3"></i>
-                            <h4 class="card-title">DevOps & Cloud</h4>
-                            <div class="d-flex flex-wrap justify-content-center">
-                                <span class="badge bg-secondary skill-badge">AWS</span>
-                                <span class="badge bg-secondary skill-badge">Docker</span>
-                                <span class="badge bg-secondary skill-badge">Nginx</span>
-                                <span class="badge bg-secondary skill-badge">CI/CD</span>
-                                <span class="badge bg-secondary skill-badge">Git</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <p class="mb-5 h5 fw-light opacity-75">
+                <span class="lang-en">Let's discuss how we can build your next big project.</span>
+                <span class="lang-tr">Bir sonraki büyük projenizi nasıl inşa edebileceğimizi konuşalım.</span>
+            </p>
+            <a href="mailto:contact@example.com" class="btn btn-light btn-lg rounded-pill px-5 fw-bold text-primary">
+                <span class="lang-en">Contact Us Now</span>
+                <span class="lang-tr">Hemen İletişime Geçin</span>
+            </a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-4">
+    <footer class="bg-dark text-white-50 py-5">
         <div class="container">
-            <div class="mb-3">
-                <a href="#" class="text-white me-3 text-decoration-none"><i class="fab fa-github fa-lg"></i></a>
-                <a href="#" class="text-white me-3 text-decoration-none"><i class="fab fa-linkedin fa-lg"></i></a>
-                <a href="#" class="text-white text-decoration-none"><i class="fas fa-envelope fa-lg"></i></a>
+            <div class="row">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-white">Amin Qudaih Consulting</h5>
+                    <p class="small">
+                        <span class="lang-en">Providing top-tier software solutions for Fintech, E-commerce, and SaaS industries worldwide.</span>
+                        <span class="lang-tr">Dünya çapında Fintech, E-ticaret ve SaaS endüstrileri için üst düzey yazılım çözümleri sunuyoruz.</span>
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-white me-3"><i class="fab fa-github fa-lg"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-linkedin fa-lg"></i></a>
+                    <a href="#" class="text-white"><i class="fas fa-envelope fa-lg"></i></a>
+                </div>
             </div>
-            <p class="mb-0">&copy; 2025 Amin Qudaih Consulting.</p>
+            <hr class="my-4 border-secondary">
+            <div class="text-center small text-secondary">
+                <p class="mb-0">&copy; 2022 - 2025 Amin Qudaih Consulting.</p>
+            </div>
         </div>
     </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
+    <!-- AOS Library (Animation) -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true, // Animations fire only once
+            offset: 100, // Offset (in px) from the original trigger point
+            duration: 800, // Duration of animation
+        });
+    </script>
+    
     <!-- Language Toggle Script -->
     <script>
         function toggleLanguage() {
             document.body.classList.toggle('show-tr');
-            // Optional: Save preference to localStorage
             if (document.body.classList.contains('show-tr')) {
                 localStorage.setItem('lang', 'tr');
             } else {
@@ -244,7 +384,6 @@
             }
         }
 
-        // Check for saved preference on load
         window.addEventListener('DOMContentLoaded', (event) => {
             if (localStorage.getItem('lang') === 'tr') {
                 document.body.classList.add('show-tr');
