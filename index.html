@@ -12,109 +12,256 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary: #2563eb;
-            --secondary: #1e293b;
-            --accent: #06b6d4;
-            --light-bg: #f8fafc;
+            --primary: #3b82f6;
+            --secondary: #6366f1;
+            --accent: #22d3ee;
+            --dark-bg: #0f172a; /* Slightly lighter deep blue for better contrast */
+            --card-bg: rgba(30, 41, 59, 0.7); /* More opaque for readability */
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --text-main: #ffffff;
+            --text-muted: #cbd5e1; /* Lighter grey for high visibility */
         }
         
         body {
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', sans-serif;
+            background-color: #020617; /* Very dark base */
+            color: var(--text-main);
             overflow-x: hidden;
+            cursor: default;
         }
 
-        /* --- Animations & Transitions --- */
-        .hover-lift {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .hover-lift:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        h1, h2, h3, h4, h5, .navbar-brand {
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.5px;
         }
 
-        /* --- Hero Section (Mesh Gradient) --- */
+        /* --- Ambient Cursor Glow --- */
+        #cursor-blur {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15), transparent 70%);
+            position: fixed;
+            top: 0; left: 0;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 0;
+            mix-blend-mode: screen;
+        }
+
+        /* --- Glassmorphism Navbar --- */
+        .navbar {
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 0;
+        }
+
+        .nav-link {
+            color: #e2e8f0 !important; /* High contrast text */
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: var(--accent) !important;
+            text-shadow: 0 0 10px rgba(34, 211, 238, 0.4);
+        }
+
+        /* --- Animated Hero --- */
         .hero-section {
-            background-color: #0f172a;
-            background-image: 
-                radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
-                radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
-                radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
-            color: white;
-            padding: 120px 0 100px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
             position: relative;
             overflow: hidden;
+            padding-top: 80px;
+            /* Animated Mesh Gradient Background */
+            background: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(225,39%,20%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(339,49%,20%,1) 0, transparent 50%);
         }
         
-        /* --- Service Cards --- */
-        .service-card {
-            border: none;
-            border-radius: 15px;
-            padding: 2rem;
-            background: white;
-            height: 100%;
-            border-bottom: 4px solid var(--primary);
+        /* Hero Image Enhancement */
+        .hero-img-glow {
+            filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.3));
+            animation: floatImg 6s ease-in-out infinite;
         }
+
+        @keyframes floatImg {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #60a5fa, #c084fc, #2dd4bf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        /* --- Glass Cards (Tilt) --- */
+        .service-card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            height: 100%;
+            backdrop-filter: blur(10px);
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-card:hover {
+            border-color: rgba(255,255,255,0.3);
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.15);
+        }
+
         .icon-box {
-            width: 60px;
-            height: 60px;
-            background: rgba(37, 99, 235, 0.1);
-            color: var(--primary);
+            width: 70px;
+            height: 70px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--accent);
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 12px;
-            font-size: 1.5rem;
+            border-radius: 16px;
+            font-size: 1.8rem;
             margin-bottom: 1.5rem;
+            transform: translateZ(20px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .card-content {
+            transform: translateZ(10px);
         }
 
-        /* --- Tech Strip --- */
+        /* --- Infinite Scroll Tech Strip --- */
         .tech-strip {
-            background: var(--secondary);
-            padding: 40px 0;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: #020617;
+            padding: 60px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        .tech-icon {
-            color: rgba(255,255,255,0.5);
-            font-size: 2.5rem;
-            margin: 0 20px;
-            transition: color 0.3s;
+        
+        .tech-strip::before, .tech-strip::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 150px;
+            height: 100%;
+            z-index: 2;
         }
-        .tech-icon:hover {
-            color: var(--accent);
+        .tech-strip::before { left: 0; background: linear-gradient(to right, #020617, transparent); }
+        .tech-strip::after { right: 0; background: linear-gradient(to left, #020617, transparent); }
+
+        .tech-track {
+            display: inline-flex;
+            gap: 4rem;
+            animation: scroll 20s linear infinite;
         }
 
-        /* --- Why Us Section --- */
-        .why-us-section {
-            background-color: var(--light-bg);
-            padding: 100px 0;
+        .tech-item {
+            font-size: 3rem;
+            color: rgba(255,255,255,0.4); /* Brighter for visibility */
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .tech-item:hover { color: var(--accent); filter: drop-shadow(0 0 15px var(--accent)); transform: scale(1.1); }
+
+        @keyframes scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
         }
 
-        /* --- CTA Section --- */
-        .cta-section {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            color: white;
-            padding: 80px 0;
+        /* --- Stats Section --- */
+        .stat-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
             text-align: center;
+            transition: transform 0.3s;
         }
+        .stat-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.05); }
+
+        /* --- CTA --- */
+        .cta-section {
+            position: relative;
+            background: #000;
+            padding: 100px 0;
+            overflow: hidden;
+        }
+        .cta-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(37, 99, 235, 0.25) 0%, transparent 70%);
+            z-index: 1;
+        }
+        .cta-content { position: relative; z-index: 2; }
 
         /* --- Language Toggle --- */
         .lang-tr { display: none; }
         body.show-tr .lang-en { display: none !important; }
         body.show-tr .lang-tr { display: block !important; }
-        body.show-tr .lang-tr-inline { display: inline !important; }
+
+        /* Buttons */
+        .btn-glow {
+            background: var(--primary);
+            color: white;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        .btn-glow:hover {
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.6);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+        /* Text Highlighting */
+        .text-highlight { color: var(--text-muted); font-size: 1.1rem; line-height: 1.7; }
     </style>
 </head>
 <body>
 
+    <!-- Glow Effect Follower -->
+    <div id="cursor-blur"></div>
+
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">
-                <i class="fas fa-code me-2 text-primary"></i>Amin Qudaih Consulting
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+                <i class="fas fa-code me-2 text-primary"></i>
+                Amin Qudaih<span class="fw-light opacity-75 ms-1">Consulting</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -124,14 +271,14 @@
                     <li class="nav-item"><a class="nav-link" href="#services"><span class="lang-en">Services</span><span class="lang-tr">Hizmetler</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="#why-us"><span class="lang-en">Why Us</span><span class="lang-tr">Neden Biz</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="#tech"><span class="lang-en">Technologies</span><span class="lang-tr">Teknolojiler</span></a></li>
-                    <li class="nav-item ms-3">
+                    
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
                         <button class="btn btn-outline-light btn-sm rounded-pill px-3" onclick="toggleLanguage()">
-                            <span class="lang-en">TR / EN</span>
-                            <span class="lang-tr">EN / TR</span>
+                            <i class="fas fa-globe me-1"></i> <span id="lang-label">TR / EN</span>
                         </button>
                     </li>
-                    <li class="nav-item ms-3">
-                        <a href="mailto:aminquh@proton.me" class="btn btn-primary rounded-pill px-4">
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                        <a href="mailto:aminquh@proton.me" class="btn btn-light rounded-pill px-4 fw-bold shadow-sm">
                             <span class="lang-en">Get a Quote</span>
                             <span class="lang-tr">Teklif Alın</span>
                         </a>
@@ -142,20 +289,25 @@
     </nav>
 
     <!-- Hero Section -->
-    <header class="hero-section d-flex align-items-center">
+    <header class="hero-section">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1000">
-                    <h1 class="display-3 fw-bold mb-4">
-                        <span class="lang-en">Scalable Software. <br><span class="text-info">Intelligent Solutions.</span></span>
-                        <span class="lang-tr">Ölçeklenebilir Yazılım. <br><span class="text-info">Akıllı Çözümler.</span></span>
+                <div class="col-lg-7" data-aos="fade-right" data-aos-duration="1000">
+                    <div class="badge bg-primary bg-opacity-25 text-primary-subtle border border-primary border-opacity-25 mb-3 px-3 py-2 rounded-pill backdrop-blur">
+                        <i class="fas fa-bolt text-warning small me-2"></i> 
+                        <span class="lang-en">High-Performance Solutions</span>
+                        <span class="lang-tr">Yüksek Performanslı Çözümler</span>
+                    </div>
+                    <h1 class="display-3 fw-bold mb-4 text-white">
+                        <span class="lang-en">Scalable Software. <br> <span class="gradient-text">Intelligent Solutions.</span></span>
+                        <span class="lang-tr">Ölçeklenebilir Yazılım. <br> <span class="gradient-text">Akıllı Çözümler.</span></span>
                     </h1>
-                    <p class="lead mb-5 text-white-50">
+                    <p class="lead mb-5 text-highlight">
                         <span class="lang-en">We transform businesses with high-performance Web, Android, and AI-driven applications. From Istanbul to the World.</span>
                         <span class="lang-tr">Yüksek performanslı Web, Android ve Yapay Zeka destekli uygulamalarla işletmeleri dönüştürüyoruz. İstanbul'dan dünyaya.</span>
                     </p>
-                    <div class="d-flex gap-3">
-                        <a href="#contact" class="btn btn-primary btn-lg rounded-pill px-5 shadow-lg">
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="#contact" class="btn btn-glow btn-lg rounded-pill px-5">
                             <span class="lang-en">Start Your Project</span>
                             <span class="lang-tr">Projeye Başla</span>
                         </a>
@@ -165,40 +317,48 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-6 mt-5 mt-lg-0 text-center" data-aos="fade-left" data-aos-duration="1000">
-                    <img src="https://cdni.iconscout.com/illustration/premium/thumb/web-development-2964817-2464795.png" alt="Development" class="img-fluid" style="max-width: 80%; filter: drop-shadow(0 0 20px rgba(6,182,212,0.3));">
+                
+                <!-- Restored Image with WOW effect -->
+                <div class="col-lg-5 mt-5 mt-lg-0 text-center" data-aos="fade-left" data-aos-duration="1000">
+                    <img src="developer.jpg" alt="Development" class="img-fluid hero-img-glow" style="max-width: 90%;">
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Tech Strip (Infinite feeling) -->
+    <!-- Infinite Tech Strip -->
     <div class="tech-strip" id="tech">
-        <div class="container text-center">
-            <p class="text-uppercase text-white-50 mb-4 small letter-spacing-2">
-                <span class="lang-en">Powering Next-Gen Apps With</span>
-                <span class="lang-tr">Yeni Nesil Uygulamaların Güç Kaynağı</span>
-            </p>
-            <div class="d-flex justify-content-center flex-wrap gap-4" data-aos="zoom-in">
-                <i class="fab fa-python tech-icon" title="Python"></i>
-                <i class="fab fa-react tech-icon" title="React"></i>
-                <i class="fab fa-aws tech-icon" title="AWS"></i>
-                <i class="fab fa-docker tech-icon" title="Docker"></i>
-                <i class="fab fa-android tech-icon" title="Android"></i>
-                <i class="fas fa-brain tech-icon" title="AI/ML"></i>
-            </div>
+        <div class="tech-track">
+            <!-- Doubled content for seamless loop -->
+            <i class="fab fa-python tech-item" title="Python"></i>
+            <i class="fab fa-react tech-item" title="React"></i>
+            <i class="fab fa-js tech-item" title="JavaScript"></i>
+            <i class="fab fa-aws tech-item" title="AWS"></i>
+            <i class="fab fa-docker tech-item" title="Docker"></i>
+            <i class="fab fa-android tech-item" title="Android"></i>
+            <i class="fas fa-database tech-item" title="PostgreSQL"></i>
+            <i class="fas fa-brain tech-item" title="AI/ML"></i>
+            <!-- Duplicate -->
+            <i class="fab fa-python tech-item"></i>
+            <i class="fab fa-react tech-item"></i>
+            <i class="fab fa-js tech-item"></i>
+            <i class="fab fa-aws tech-item"></i>
+            <i class="fab fa-docker tech-item"></i>
+            <i class="fab fa-android tech-item"></i>
+            <i class="fas fa-database tech-item"></i>
+            <i class="fas fa-brain tech-item"></i>
         </div>
     </div>
 
     <!-- Services Section -->
-    <section id="services" class="py-5">
+    <section id="services" class="py-5 position-relative">
         <div class="container py-5">
             <div class="text-center mb-5" data-aos="fade-up">
-                <h6 class="text-primary text-uppercase fw-bold ls-2">
+                <span class="text-accent text-uppercase small letter-spacing-2 fw-bold" style="color: var(--accent);">
                     <span class="lang-en">What We Do</span>
                     <span class="lang-tr">Ne Yapıyoruz</span>
-                </h6>
-                <h2 class="display-5 fw-bold">
+                </span>
+                <h2 class="display-4 fw-bold text-white mt-2">
                     <span class="lang-en">End-to-End Development</span>
                     <span class="lang-tr">Uçtan Uca Geliştirme</span>
                 </h2>
@@ -206,73 +366,80 @@
 
             <div class="row g-4">
                 <!-- Service 1 -->
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="service-card hover-lift shadow-sm">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-card" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
                         <div class="icon-box">
                             <i class="fas fa-globe"></i>
                         </div>
-                        <h3>
-                            <span class="lang-en">Full-Stack Web</span>
-                            <span class="lang-tr">Full-Stack Web</span>
-                        </h3>
-                        <p class="text-muted mt-3">
-                            <span class="lang-en">Modern web applications using React, Next.js, and Python (FastAPI/Django). We build scalable SaaS platforms and e-commerce solutions.</span>
-                            <span class="lang-tr">React, Next.js ve Python (FastAPI/Django) kullanan modern web uygulamaları. Ölçeklenebilir SaaS platformları ve e-ticaret çözümleri üretiyoruz.</span>
-                        </p>
+                        <div class="card-content">
+                            <h3 class="text-white h4">
+                                <span class="lang-en">Full-Stack Web</span>
+                                <span class="lang-tr">Full-Stack Web</span>
+                            </h3>
+                            <p class="text-highlight mt-3">
+                                <span class="lang-en">Modern web applications using React, Next.js, and Python (FastAPI/Django). We build scalable SaaS platforms and e-commerce solutions.</span>
+                                <span class="lang-tr">React, Next.js ve Python (FastAPI/Django) kullanan modern web uygulamaları. Ölçeklenebilir SaaS platformları ve e-ticaret çözümleri.</span>
+                            </p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Service 2 -->
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="service-card hover-lift shadow-sm">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-card" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
                         <div class="icon-box">
                             <i class="fab fa-android"></i>
                         </div>
-                        <h3>
-                            <span class="lang-en">Android Development</span>
-                            <span class="lang-tr">Android Geliştirme</span>
-                        </h3>
-                        <p class="text-muted mt-3">
-                            <span class="lang-en">Native Kotlin applications with seamless integrations. Features include Firebase, Push Notifications, and Payment Gateways.</span>
-                            <span class="lang-tr">Kusursuz entegrasyonlara sahip yerel (native) Kotlin uygulamaları. Firebase, Bildirimler ve Ödeme Sistemleri dahildir.</span>
-                        </p>
+                        <div class="card-content">
+                            <h3 class="text-white h4">
+                                <span class="lang-en">Android Development</span>
+                                <span class="lang-tr">Android Geliştirme</span>
+                            </h3>
+                            <p class="text-highlight mt-3">
+                                <span class="lang-en">Native Kotlin applications with seamless integrations. Features include Firebase, Push Notifications, and Payment Gateways.</span>
+                                <span class="lang-tr">Kusursuz entegrasyonlara sahip yerel (native) Kotlin uygulamaları. Firebase, Bildirimler ve Ödeme Sistemleri dahildir.</span>
+                            </p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Service 3 -->
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="service-card hover-lift shadow-sm">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-card" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
                         <div class="icon-box">
                             <i class="fas fa-robot"></i>
                         </div>
-                        <h3>
-                            <span class="lang-en">AI & Automation</span>
-                            <span class="lang-tr">Yapay Zeka & Otomasyon</span>
-                        </h3>
-                        <p class="text-muted mt-3">
-                            <span class="lang-en">Integrate the future into your business. Chatbots, Semantic Search, and Process Automation using OpenAI and Hugging Face.</span>
-                            <span class="lang-tr">Geleceği işinize entegre edin. OpenAI ve Hugging Face kullanarak Chatbotlar, Anlamsal Arama ve Süreç Otomasyonu.</span>
-                        </p>
+                        <div class="card-content">
+                            <h3 class="text-white h4">
+                                <span class="lang-en">AI & Automation</span>
+                                <span class="lang-tr">Yapay Zeka & Otomasyon</span>
+                            </h3>
+                            <p class="text-highlight mt-3">
+                                <span class="lang-en">Integrate the future into your business. Chatbots, Semantic Search, and Process Automation using OpenAI and Hugging Face.</span>
+                                <span class="lang-tr">Geleceği işinize entegre edin. OpenAI ve Hugging Face kullanarak Chatbotlar, Anlamsal Arama ve Süreç Otomasyonu.</span>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Why Us / Value Prop (Different Look) -->
-    <section id="why-us" class="why-us-section">
+    <!-- Why Us Section -->
+    <section id="why-us" class="py-5">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-5 mb-5 mb-lg-0" data-aos="fade-right">
-                    <h2 class="display-5 fw-bold mb-4">
+                <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
+                    <h2 class="display-5 fw-bold text-white mb-4">
                         <span class="lang-en">Why Partner With Us?</span>
                         <span class="lang-tr">Neden Bizimle Çalışmalısınız?</span>
                     </h2>
-                    <p class="lead text-muted">
+                    <p class="lead text-highlight">
                         <span class="lang-en">We don't just write code; we solve complex business problems. Our hybrid expertise in Mobile, Web, and AI offers a competitive edge.</span>
                         <span class="lang-tr">Sadece kod yazmıyoruz; karmaşık iş problemlerini çözüyoruz. Mobil, Web ve Yapay Zeka konusundaki hibrit uzmanlığımız rekabet avantajı sağlar.</span>
                     </p>
-                    <ul class="list-unstyled mt-4">
+                    
+                    <ul class="list-unstyled mt-4 text-highlight">
                         <li class="mb-3 d-flex align-items-center">
                             <i class="fas fa-check-circle text-success me-3 fa-lg"></i>
                             <span class="lang-en">Cloud-Ready Architecture (AWS/Docker)</span>
@@ -290,26 +457,31 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-lg-6 offset-lg-1" data-aos="fade-left">
+                
+                <div class="col-lg-5 offset-lg-1" data-aos="zoom-in">
                     <div class="row g-3">
                         <div class="col-6">
-                            <div class="p-4 bg-white rounded shadow-sm text-center">
-                                <h2 class="fw-bold text-primary">4+</h2>
-                                <span class="lang-en small">Years Experience</span>
-                                <span class="lang-tr small">Yıl Deneyim</span>
+                            <div class="stat-card">
+                                <h2 class="display-4 fw-bold text-white mb-0">4+</h2>
+                                <p class="text-muted small mb-0">
+                                    <span class="lang-en">Years Exp</span>
+                                    <span class="lang-tr">Yıl Deneyim</span>
+                                </p>
                             </div>
                         </div>
                         <div class="col-6">
-                            <div class="p-4 bg-white rounded shadow-sm text-center">
-                                <h2 class="fw-bold text-primary">100%</h2>
-                                <span class="lang-en small">Client Satisfaction</span>
-                                <span class="lang-tr small">Müşteri Memnuniyeti</span>
+                            <div class="stat-card">
+                                <h2 class="display-4 fw-bold text-accent mb-0">100%</h2>
+                                <p class="text-muted small mb-0">
+                                    <span class="lang-en">Satisfaction</span>
+                                    <span class="lang-tr">Memnuniyet</span>
+                                </p>
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="p-4 bg-white rounded shadow-sm text-center">
-                                <i class="fas fa-network-wired fa-2x text-secondary mb-2"></i>
-                                <h5 class="fw-bold mt-2">Full-Stack Capability</h5>
+                            <div class="stat-card d-flex align-items-center justify-content-center flex-column">
+                                <i class="fas fa-network-wired text-secondary fa-2x mb-2"></i>
+                                <h5 class="text-white m-0">Full-Stack Capability</h5>
                             </div>
                         </div>
                     </div>
@@ -320,16 +492,18 @@
 
     <!-- CTA Section -->
     <section id="contact" class="cta-section">
-        <div class="container text-center" data-aos="zoom-in">
-            <h2 class="mb-4 fw-bold">
+        <div class="cta-glow"></div>
+        <div class="container text-center cta-content" data-aos="fade-up">
+            <h2 class="display-4 fw-bold text-white mb-4">
                 <span class="lang-en">Ready to scale your business?</span>
                 <span class="lang-tr">İşinizi büyütmeye hazır mısınız?</span>
             </h2>
-            <p class="mb-5 h5 fw-light opacity-75">
+            <p class="lead text-muted mb-5">
                 <span class="lang-en">Let's discuss how we can build your next big project.</span>
                 <span class="lang-tr">Bir sonraki büyük projenizi nasıl inşa edebileceğimizi konuşalım.</span>
             </p>
-            <a href="mailto:aminquh@proton.me" class="btn btn-light btn-lg rounded-pill px-5 fw-bold text-primary">
+            <a href="mailto:aminquh@proton.me" class="btn btn-light btn-lg rounded-pill px-5 fw-bold text-primary shadow-lg" style="transform: scale(1.05);">
+                <i class="fas fa-paper-plane me-2"></i>
                 <span class="lang-en">Contact Us Now</span>
                 <span class="lang-tr">Hemen İletişime Geçin</span>
             </a>
@@ -337,57 +511,71 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white-50 py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 mb-4 mb-md-0">
-                    <h5 class="text-white">Amin Qudaih Consulting</h5>
-                    <p class="small">
-                        <span class="lang-en">Providing top-tier software solutions for Fintech, E-commerce, and SaaS industries worldwide.</span>
-                        <span class="lang-tr">Dünya çapında Fintech, E-ticaret ve SaaS endüstrileri için üst düzey yazılım çözümleri sunuyoruz.</span>
-                    </p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <a href="https://github.com/aminquh" class="text-white me-3"><i class="fab fa-github fa-lg"></i></a>
-                    <a href="https://www.linkedin.com/in/aminquh/" class="text-white me-3"><i class="fab fa-linkedin fa-lg"></i></a>
-                    <a href="mailto:aminquh@proton.me" class="text-white"><i class="fas fa-envelope fa-lg"></i></a>
-                </div>
+    <!-- Footer -->
+<footer class="py-5" style="background-color: #020617; border-top: 1px solid rgba(255,255,255,0.1);">
+    <div class="container">
+        <div class="row gy-4 justify-content-between align-items-center">
+            <div class="col-md-6 text-center text-md-start">
+                <h5 class="text-white fw-bold">Amin Qudaih Consulting</h5>
+                <!-- FIXED: Removed 'text-muted', added custom inline color style -->
+                <p class="small mb-0" style="color: #e2e8f0; font-size: 0.95rem; line-height: 1.6;">
+                    <span class="lang-en">Providing top-tier software solutions for Fintech, E-commerce, and SaaS industries worldwide.</span>
+                    <span class="lang-tr">Dünya çapında Fintech, E-ticaret ve SaaS endüstrileri için üst düzey yazılım çözümleri sunuyoruz.</span>
+                </p>
+                <div class="small mt-3" style="color: #94a3b8;">&copy; 2022 - 2025 Amin Qudaih Consulting.</div>
             </div>
-            <hr class="my-4 border-secondary">
-            <div class="text-center small text-secondary">
-                <p class="mb-0">&copy; 2022 - 2025 Amin Qudaih Consulting.</p>
+            <div class="col-md-6 text-center text-md-end">
+                <a href="https://github.com/aminquh" class="text-white me-4 text-decoration-none"><i class="fab fa-github fa-lg"></i></a>
+                <a href="https://www.linkedin.com/in/aminquh/" class="text-white me-4 text-decoration-none"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="mailto:aminquh@proton.me" class="text-white text-decoration-none"><i class="fas fa-envelope fa-lg"></i></a>
             </div>
         </div>
-    </footer>
+    </div>
+</footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- AOS Library (Animation) -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            once: true, // Animations fire only once
-            offset: 100, // Offset (in px) from the original trigger point
-            duration: 800, // Duration of animation
-        });
-    </script>
     
-    <!-- Language Toggle Script -->
+    <!-- Vanilla Tilt (3D Effect for cards) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+
     <script>
+        // Init AOS
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 800,
+        });
+
+        // Language Toggle Logic
         function toggleLanguage() {
             document.body.classList.toggle('show-tr');
+            const langBtn = document.getElementById('lang-label');
+            
             if (document.body.classList.contains('show-tr')) {
                 localStorage.setItem('lang', 'tr');
+                // langBtn.textContent = 'EN'; 
             } else {
                 localStorage.setItem('lang', 'en');
+                // langBtn.textContent = 'TR';
             }
         }
 
-        window.addEventListener('DOMContentLoaded', (event) => {
+        // Check local storage on load
+        window.addEventListener('DOMContentLoaded', () => {
             if (localStorage.getItem('lang') === 'tr') {
                 document.body.classList.add('show-tr');
             }
+        });
+
+        // Mouse Follower "Flashlight" Effect
+        const cursorBlur = document.getElementById('cursor-blur');
+        document.addEventListener('mousemove', (e) => {
+            cursorBlur.style.left = e.clientX + 'px';
+            cursorBlur.style.top = e.clientY + 'px';
         });
     </script>
 </body>
